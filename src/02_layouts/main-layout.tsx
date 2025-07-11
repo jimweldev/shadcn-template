@@ -25,6 +25,11 @@ const MainLayout = () => {
           url: '/react-select',
           icon: FaChartArea,
         },
+        {
+          title: 'Dialog',
+          url: '/dialog',
+          icon: FaChartArea,
+        },
       ],
     },
   ];
