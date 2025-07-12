@@ -3,6 +3,7 @@ import ButtonPage from './01_pages/button-page';
 import DialogPage from './01_pages/dialog-page';
 import InputPage from './01_pages/input-page';
 import ReactSelectPage from './01_pages/react-select-page';
+import TabPage from './01_pages/tab-page';
 import MainLayout from './02_layouts/main-layout';
 
 const App = () => {
@@ -29,6 +30,10 @@ const App = () => {
         {
           path: 'dialog',
           element: <DialogPage />,
+        },
+        {
+          path: 'tab',
+          element: <TabPage />,
         },
       ],
     },

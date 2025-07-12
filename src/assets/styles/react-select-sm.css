@@ -36,7 +36,7 @@
 }
 
 .react-select-sm__indicators > div {
-  @apply !px-0 !py-0;
+  @apply !px-1 !py-0;
 }
 
 /* Scrollbar Styling */

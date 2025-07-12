@@ -30,6 +30,11 @@ const MainLayout = () => {
           url: '/dialog',
           icon: FaChartArea,
         },
+        {
+          title: 'Tab',
+          url: '/tab',
+          icon: FaChartArea,
+        },
       ],
     },
   ];
