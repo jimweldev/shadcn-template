@@ -35,7 +35,12 @@ function DialogOverlay({
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
-      className={cn('fixed inset-0 z-50 bg-black/50', className)}
+      className={cn(
+        'fixed inset-0 z-50 bg-black/50',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out',
+        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        className,
+      )}
       {...props}
     />
   );
@@ -67,16 +72,29 @@ function DialogContent({
   children,
   size = 'default',
   position = 'top',
-  showCloseButton = true,
+  staticBackdrop = false,
+  autoFocus = false,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> &
   VariantProps<typeof dialogVariants> & {
-    showCloseButton?: boolean;
+    staticBackdrop?: boolean;
+    autoFocus?: boolean;
   }) {
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay>
-        <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div
+          className="fixed inset-0 z-50 overflow-y-auto"
+          onPointerDown={e => {
+            const target = e.target as HTMLElement;
+            const isScrollbar =
+              target.offsetWidth < target.scrollWidth ||
+              target.offsetHeight < target.scrollHeight;
+            if (isScrollbar) {
+              e.stopPropagation();
+            }
+          }}
+        >
           <div
             className={cn(
               'flex min-h-screen w-full flex-col items-center p-6',
@@ -87,20 +105,29 @@ function DialogContent({
               data-slot="dialog-content"
               className={cn(
                 'bg-background relative w-full rounded-lg border',
+                'data-[state=open]:animate-in data-[state=closed]:animate-out',
+                'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+                'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+                'data-[state=closed]:slide-out-to-top-[48%]',
+                'data-[state=open]:slide-in-from-top-[48%]',
                 cn(dialogVariants({ size, className })),
               )}
+              onInteractOutside={e => {
+                if (staticBackdrop) {
+                  e.preventDefault();
+                }
+              }}
               {...props}
             >
               {children}
-              {showCloseButton && (
-                <DialogPrimitive.Close
-                  data-slot="dialog-close"
-                  className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-3 right-3 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-                >
-                  <XIcon />
-                  <span className="sr-only">Close</span>
-                </DialogPrimitive.Close>
-              )}
+
+              <DialogPrimitive.Close
+                data-slot="dialog-close"
+                className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-3 right-3 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+              >
+                <XIcon />
+                <span className="sr-only">Close</span>
+              </DialogPrimitive.Close>
             </DialogPrimitive.Content>
           </div>
         </div>
@@ -113,7 +140,7 @@ function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn('border-b p-3', className)}
+      className={cn('p-layout border-b', className)}
       {...props}
     />
   );
@@ -121,7 +148,11 @@ function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
 
 function DialogBody({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div data-slot="dialog-body" className={cn('p-3', className)} {...props} />
+    <div
+      data-slot="dialog-body"
+      className={cn('p-layout', className)}
+      {...props}
+    />
   );
 }
 
@@ -129,7 +160,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn('border-t p-3', className)}
+      className={cn('p-layout border-t', className)}
       {...props}
     />
   );

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 const ButtonPage = () => {
   return (
-    <div className="space-y-3">
+    <div className="space-y-layout">
       <Button size="xs" className="w-full">
         <FaHouse /> Button
       </Button>

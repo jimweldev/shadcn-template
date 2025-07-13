@@ -2,8 +2,10 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogBody,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,10 +15,10 @@ const DialogPage = () => {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button>Open</Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent position="top">
           <DialogHeader>
             <DialogTitle>Are you absolutely sure?</DialogTitle>
             <DialogDescription>
@@ -29,6 +31,11 @@ const DialogPage = () => {
               <h1 key={index}>Body</h1>
             ))}
           </DialogBody>
+          <DialogFooter className="flex justify-end gap-2">
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 import { Input } from '@/components/ui/input';
 
 const ReactSelectPage = () => {
@@ -9,26 +9,23 @@ const ReactSelectPage = () => {
   ];
 
   return (
-    <div className="space-y-3">
-      <Input inputSize="xs" placeholder="Select" />
-      <div className="grid grid-cols-2 gap-2">
-        <Input inputSize="sm" placeholder="Select" />
-        <Select
-          className="react-select-sm-container w-full"
-          classNamePrefix="react-select-sm"
-          placeholder="Select"
-          options={options}
-          isMulti
-        />
-      </div>
-      <Select
+    <div className="space-y-layout">
+      <Input inputSize="xs" placeholder="Input" />
+      <ReactSelect
+        className="react-select-sm-container w-full"
+        classNamePrefix="react-select-sm"
+        placeholder="Select"
+        isMulti
+        options={options}
+      />
+      <ReactSelect
         className="react-select-container w-full"
         classNamePrefix="react-select"
         placeholder="Select"
         options={options}
         isMulti
       />
-      <Input inputSize="lg" placeholder="Select" />
+      <Input inputSize="lg" placeholder="Input" />
     </div>
   );
 };
