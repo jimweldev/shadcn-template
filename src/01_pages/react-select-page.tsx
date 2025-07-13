@@ -1,12 +1,13 @@
 import ReactSelect from 'react-select';
 import { Input } from '@/components/ui/input';
+import { convertToSelectOptions } from '@/lib/convert-to-select-options';
 
 const ReactSelectPage = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
+  const options = convertToSelectOptions([
+    'Chocolate',
+    'Strawberry',
+    'Vanilla',
+  ]);
 
   return (
     <div className="space-y-layout">

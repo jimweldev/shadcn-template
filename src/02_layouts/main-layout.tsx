@@ -35,6 +35,11 @@ const MainLayout = () => {
           url: '/tab',
           icon: FaChartArea,
         },
+        {
+          title: 'React Image',
+          url: '/react-image',
+          icon: FaChartArea,
+        },
       ],
     },
   ];
